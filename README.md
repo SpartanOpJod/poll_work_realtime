@@ -131,18 +131,6 @@ npm run dev
   - On successful vote, frontend saves `voted_poll_<pollId>` in `localStorage`.
   - Vote button becomes disabled with a clear message.
 
-## Deployment (Vercel)
-
-1. Push this project to GitHub.
-2. Import to Vercel.
-3. Add `MONGODB_URI` in Vercel project environment variables.
-4. Deploy.
-
-Notes:
-
-- Poll data persists in MongoDB Atlas and remains available by share URL.
-- Socket.io is initialized through Next API route (`pages/api/socket.ts`) and consumed from App Router pages/components.
-- For best real-time behavior in production, run on Node.js runtime and keep app/server region consistent with your database region.
 
 ## Production Readiness Notes
 
