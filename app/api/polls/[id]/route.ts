@@ -8,10 +8,10 @@ export const runtime = 'nodejs';
 
 export async function GET(
   request: Request,
-  context: { params: { id: string } }
+  { params }: { params: { id: string } }
 ) {
   try {
-    const { id } = context.params;
+    const { id } = params;
 
     if (!Types.ObjectId.isValid(id)) {
       return NextResponse.json({ error: 'Invalid poll ID.' }, { status: 400 });
@@ -25,8 +25,14 @@ export async function GET(
       return NextResponse.json({ error: 'Poll not found.' }, { status: 404 });
     }
 
-    return NextResponse.json({ poll: serializePoll(poll) }, { status: 200 });
+    return NextResponse.json(
+      { poll: serializePoll(poll as unknown) },
+      { status: 200 }
+    );
   } catch {
-    return NextResponse.json({ error: 'Failed to fetch poll.' }, { status: 500 });
+    return NextResponse.json(
+      { error: 'Failed to fetch poll.' },
+      { status: 500 }
+    );
   }
 }
