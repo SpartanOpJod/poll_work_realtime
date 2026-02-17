@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { Types } from 'mongoose';
+import type { NextRequest } from 'next/server';
 import connectToDatabase from '@/lib/mongodb';
 import { serializePoll } from '@/lib/poll';
 import Poll from '@/models/Poll';
@@ -7,11 +8,11 @@ import Poll from '@/models/Poll';
 export const runtime = 'nodejs';
 
 export async function GET(
-  request: Request,
-  { params }: { params: { id: string } }
+  _req: NextRequest,
+  context: { params: { id: string } }
 ) {
   try {
-    const { id } = params;
+    const id = context.params.id;
 
     if (!Types.ObjectId.isValid(id)) {
       return NextResponse.json({ error: 'Invalid poll ID.' }, { status: 400 });
@@ -26,7 +27,7 @@ export async function GET(
     }
 
     return NextResponse.json(
-      { poll: serializePoll(poll as unknown) },
+      { poll: serializePoll(poll) },
       { status: 200 }
     );
   } catch {
