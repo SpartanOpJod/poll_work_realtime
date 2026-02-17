@@ -7,11 +7,11 @@ import Poll from '@/models/Poll';
 export const runtime = 'nodejs';
 
 export async function GET(
-  _request: Request,
-  { params }: { params: { id: string } }
+  request: Request,
+  context: { params: { id: string } }
 ) {
   try {
-    const { id } = params;
+    const { id } = context.params;
 
     if (!Types.ObjectId.isValid(id)) {
       return NextResponse.json({ error: 'Invalid poll ID.' }, { status: 400 });
