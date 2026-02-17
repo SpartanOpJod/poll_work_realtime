@@ -25,7 +25,7 @@ export async function GET(
       return NextResponse.json({ error: 'Poll not found.' }, { status: 404 });
     }
 
-    return NextResponse.json({ poll: serializePoll(poll) }, { status: 200 });
+    return NextResponse.json({ poll: serializePoll(poll as any) }, { status: 200 });
   } catch {
     return NextResponse.json({ error: 'Failed to fetch poll.' }, { status: 500 });
   }
